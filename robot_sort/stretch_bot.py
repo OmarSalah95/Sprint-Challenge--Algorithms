@@ -100,7 +100,32 @@ class StretchBot:
         Sort the robot's list.
         """
         # Fill this out
-        
+        self.set_light_on()
+        while self.light_is_on():
+            self.set_light_off()
+            self.swap_item()
+            # Iterate as far to the right or top of the list as possible before we are at the last item
+            while self.can_move_right():
+                self.move_right()
+                if self.compare_item() == -1:
+                    self.swap_item()
+                elif self.compare_item() == 1:
+                    if not self.light_is_on():
+                        self.set_light_on()
+            #  See if we need to swap the last item in the list
+            if self.compare_item() == 1:
+                self.swap_item()
+            #  Now that we have sorted bottom up, we can sort a second pass top to bottom, comparing as we move to the last spot in the reverse of the last loop to the first item in the list
+            while self.can_move_left():
+                self.move_left()
+                if self.compare_item() == 1:
+                    self.swap_item()
+                elif self.compare_item() == -1:
+                    if not self.light_is_on():
+                        self.set_light_on()
+            #  See if we need to swap the first item in the list
+            if not self.can_move_left():
+                self.swap_item()
 
 
 if __name__ == "__main__":
