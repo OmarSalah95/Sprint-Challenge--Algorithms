@@ -1,6 +1,7 @@
 import unittest
 import random
 from robot_sort import SortingRobot
+from stretch_bot import StretchBot
 
 class Test(unittest.TestCase):
 
@@ -36,25 +37,52 @@ class Test(unittest.TestCase):
         robot.sort()
         self.assertEqual(robot._list, sorted(self.random_list))
 
-    # def test_stretch_times(self):
-    #     robot = SortingRobot(self.small_list)
-    #     robot.sort()
-    #     self.assertLess(robot._time, 110)
+    def test_r_times(self):
+        
+        print("\nSorting Robot:")
+        robot = SortingRobot(self.small_list)
+        robot.sort()
+        print('The Target time   110 was you got:    ',robot._time)
+        self.assertLess(robot._time, 110)
 
-    #     robot = SortingRobot(self.medium_list)
-    #     robot.sort()
-    #     print(robot._time)
-    #     self.assertLess(robot._time, 1948)
+        robot = SortingRobot(self.medium_list)
+        robot.sort()
+        print('The Target time  1948 was you got:   ',robot._time)
+        self.assertLess(robot._time, 1948)
 
-    #     robot = SortingRobot(self.large_list)
-    #     robot.sort()
-    #     print(robot._time)
-    #     self.assertLess(robot._time, 27513)
+        robot = SortingRobot(self.large_list)
+        robot.sort()
+        print('The Target time 27513 was you got: ',robot._time)
+        self.assertLess(robot._time, 27513)
 
-    #     robot = SortingRobot(self.large_varied_list)
-    #     robot.sort()
-    #     print(robot._time)
-    #     self.assertLess(robot._time, 28308)
+        robot = SortingRobot(self.large_varied_list)
+        robot.sort()
+        print('The Target time 28308 was you got: ',robot._time)
+        self.assertLess(robot._time, 28308)
+    
+    def test_stretch_times(self):
+        print("\nStretch Bot:")
+        robot = StretchBot(self.small_list)
+        robot.sort()
+        print('The Target time   110 was you got:   ',robot._time)
+        self.assertLess(robot._time, 110)
+
+        robot = StretchBot(self.medium_list)
+        robot.sort()
+        print('The Target time  1948 was you got:  ',robot._time)
+        self.assertLess(robot._time, 1948)
+
+        robot = StretchBot(self.large_list)
+        robot.sort()
+        print('The Target time 27513 was you got: ',robot._time)
+        self.assertLess(robot._time, 27513)
+
+        robot = StretchBot(self.large_varied_list)
+        robot.sort()
+        print('The Target time 28308 was you got: ',robot._time)
+        self.assertLess(robot._time, 28308)
+        
+    
 
 
 if __name__ == '__main__':

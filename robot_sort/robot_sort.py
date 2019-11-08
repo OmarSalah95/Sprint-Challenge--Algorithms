@@ -91,13 +91,62 @@ class SortingRobot:
         Returns True if the robot's light is on and False otherwise.
         """
         return self._light == "ON"
+    
+    def find_empty_cell(self):
+        """
+        Moves robot left to empty spot to start new sorting pass. If robot doesn't move
+        left and is still at the end of the list, declare the sorting
+        to be finished by turning the light on
+        """
+        # Find the first empty spot in the array top down
+        while self.compare_item() != None:
+            self.move_left()
+        self.swap_item()
+        # if robot can still move right, we weren't in the last spot
+        if self.can_move_right():
+            # so move right, and pick up new one
+            self.move_right()
+            self.swap_item()
+            return True
+        else:
+            # empty spot was on the last spot (didn't move in any move lefts)
+            # array is fully sorted, so turn light on
+
+            # without using light, just return false and outer scope will break the while loop
+            return False
 
     def sort(self):
         """
         Sort the robot's list.
         """
-        # Fill this out
-        pass
+        #  Grab the first Item you find
+        self.swap_item()
+        while True:
+            # not at end of list
+            if self.can_move_right():
+                # spot is empty and can move right, so move right and pick up item there
+                if self.compare_item() == None:
+                    self.move_right()
+                # if compared item is smaller, swap and move to next
+                elif self.compare_item() == 1:
+                    self.swap_item()
+                    self.move_right()
+                # if held item is smaller or equal, keep and move to next
+                elif self.compare_item() == -1 or self.compare_item() == 0:
+                    self.move_right()
+            # at end of list
+            else:
+                # check last item and see if needing to swap
+                # , then move left to empty for a second pass to insert the last item back into the list
+                # at the right index
+
+                # if compared item is smaller, swap and go back for new run
+                if self.compare_item() == 1:
+                    self.swap_item()
+
+                # if compared item is bigger or the spot is empty, just go back for new run
+                if self.find_empty_cell() == False:
+                    break
 
 
 if __name__ == "__main__":
